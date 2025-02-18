@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@atproto/api": "^0.14.1",
+    "cron": "^3.5.0",
+    "dotenv": "^16.4.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
