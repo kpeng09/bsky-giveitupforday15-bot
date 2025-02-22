@@ -1,30 +1,42 @@
-import { BskyAgent } from '@atproto/api';
+import { AtpAgent } from '@atproto/api';
+import * as fs from 'fs';
+import * as util from 'util';
 import * as dotenv from 'dotenv';
-import { CronJob } from 'cron';
-import * as process from 'process';
-
 dotenv.config();
 
-// Create a Bluesky Agent 
-const agent = new BskyAgent({
-    service: 'https://bsky.social',
-})
+const readFile = util.promisify(fs.readFile);
 
-async function main() {
-    await agent.login({ identifier: process.env.BLUESKY_USERNAME!, password: process.env.BLUESKY_PASSWORD!})
-    await agent.post({
-        text: "🙂"
-    });
-    console.log("Just posted!")
+async function loadImageData(path: fs.PathLike) {
+  // Read the file from the provided path
+  let buffer = await readFile(path);
+
+  // Convert the buffer to a Uint8Array and return it
+  return { data: new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength) };
 }
 
-main();
+async function postImage() {
+  const agent = new AtpAgent({ service: 'https://bsky.social' })
 
+  await agent.login({
+    identifier: process.env.BSKY_IDENTIFIER,
+    password: process.env.BSKY_PASSWORD
+  });
 
-// Run this on a cron job
-const scheduleExpressionMinute = '* * * * *'; // Run once every minute for testing
-const scheduleExpression = '0 */3 * * *'; // Run once every three hours in prod
+  // Converts the image from path to Uint8Array
+  const { data } = await loadImageData('../images/mrkrabs_day15.jpg');
 
-const job = new CronJob(scheduleExpression, main); // change to scheduleExpressionMinute for testing
+  const uploadImage = await agent.uploadBlob(data, { encoding: 'image/jpg' });
 
-job.start();
+  await agent.post({
+    text: "GIVE IT UP FOR DAY 15",
+    embed: {
+      images: [
+        {
+          image: uploadImage.data.blob,
+          alt: 'mr krabs ringing the bell to signal its day 15'
+        },
+      ],
+      $type: 'app.bsky.embed.images',
+    },
+  });
+}
