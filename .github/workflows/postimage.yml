@@ -8,6 +8,8 @@ jobs:
         steps:
           - uses: actions/checkout@v2
 
+          - run: npm ci
+
           - name: post-image
             env:
               BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
