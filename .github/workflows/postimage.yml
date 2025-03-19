@@ -1,0 +1,23 @@
+name: "post to bsky"
+
+on: push
+
+jobs:
+    post-image:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+
+          - run: npm ci
+
+          - name: post-image
+            env:
+              BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
+              BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
+            run: npm start
+
+
+                
+
+
+               
