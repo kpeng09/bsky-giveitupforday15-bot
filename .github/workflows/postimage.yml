@@ -1,6 +1,6 @@
 name: "post to bsky"
 
-on: workflow_dispatch
+on: push
 
 jobs:
     post-image:
