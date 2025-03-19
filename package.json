@@ -14,11 +14,11 @@
     "@atproto/api": "^0.14.1",
     "@atproto/oauth-client": "^0.3.10",
     "cron": "^3.5.0",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "tsc": "^2.0.4",
-    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }
