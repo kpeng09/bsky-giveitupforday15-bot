@@ -1,6 +1,9 @@
 name: "post to bsky"
 
 on: push
+# on: 
+#     schedule:
+#             - cron: "0/28 * * * *"
 
 jobs:
     post-image:
