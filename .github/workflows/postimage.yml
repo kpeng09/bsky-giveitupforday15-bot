@@ -10,7 +10,7 @@ jobs:
 
           - name: test
             env:
-              BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+              BSKY_HANDLE: ${{ secrets.BSKY_IDENTIFIER }}
               BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
             run: npm start | echo "actions ran successfully"
 
