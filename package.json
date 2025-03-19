@@ -6,7 +6,8 @@
   "author": "Kay <@projectsbykay.bsky.social>",
   "license": "MIT",
   "scripts": {
-    "start": "npx tsx src/index.ts"
+    "start": "npx tsx src/index.ts",
+    "test": "npx jest"
   },
   "type": "module",
   "dependencies": {
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "eslint": "^9.22.0",
+    "ts-jest": "^29.2.6",
     "tsc": "^2.0.4",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.1"
