@@ -7,7 +7,7 @@ dotenv.config();
 
 const readFile = util.promisify(fs.readFile);
 
-async function loadImageData(path: fs.PathLike): Promise<Uint8Array> {
+async function loadImageData(path: fs.PathLike): Promise<{imageData: Uint8Array}> {
   // Read the file from the provided path
   const buffer = await readFile(path);
 
@@ -15,13 +15,18 @@ async function loadImageData(path: fs.PathLike): Promise<Uint8Array> {
   return { imageData: new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength) };
 }
 
-async function postImage(): Promise<void> {
+async function atpLogin(): Promise<AtpAgent> {
   const agent = new AtpAgent({ service: 'https://bsky.social' })
 
   await agent.login({
     identifier: process.env.BSKY_IDENTIFIER,
     password: process.env.BSKY_PASSWORD
   });
+
+  return agent
+}
+
+async function postImage(agent: AtpAgent): Promise<void> {
 
   // Converts the image from path to Uint8Array
   const { imageData } = await loadImageData('./images/mrkrabs_day15.jpg');
@@ -42,4 +47,11 @@ async function postImage(): Promise<void> {
   });
 }
 
-postImage()
+async function main() {
+  const agent = await atpLogin();
+  await postImage(agent);
+}
+
+main()
+
+// export default postImage
