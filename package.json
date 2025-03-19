@@ -1,0 +1,29 @@
+{
+  "name": "bsky-giveitupforday15-bot",
+  "version": "0.0.1",
+  "description": "Bot that posts Mr. Krabs with his bell every 15th day of the month",
+  "repository": "https://github.com/kpto09/bsky-giveitupforday15-bot",
+  "author": "Kay <@projectsbykay.bsky.social>",
+  "license": "MIT",
+  "scripts": {
+    "start": "npx tsx src/index.ts",
+    "test": "npx jest"
+  },
+  "type": "module",
+  "dependencies": {
+    "@atcute/client": "^2.0.7",
+    "@atproto/api": "^0.14.1",
+    "@atproto/oauth-client": "^0.3.10",
+    "cron": "^3.5.0",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.19.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "eslint": "^9.22.0",
+    "ts-jest": "^29.2.6",
+    "tsc": "^2.0.4",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1"
+  }
+}
