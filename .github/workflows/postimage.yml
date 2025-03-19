@@ -8,7 +8,7 @@ jobs:
         steps:
           - uses: actions/checkout@v2
 
-          - name: test
+          - name: post-image
             env:
               BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
               BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
