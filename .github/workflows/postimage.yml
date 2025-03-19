@@ -10,7 +10,7 @@ jobs:
 
           - name: test
             env:
-              BSKY_HANDLE: ${{ secrets.BSKY_IDENTIFIER }}
+              BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
               BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
             run: npx tsx src/index.ts
 
