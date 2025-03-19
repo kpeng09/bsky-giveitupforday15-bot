@@ -6,7 +6,7 @@
   "author": "Kay <@projectsbykay.bsky.social",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.ts"
+    "start": "npx tsx src/index.ts"
   },
   "type": "module",
   "dependencies": {
@@ -15,10 +15,11 @@
     "@atproto/oauth-client": "^0.3.10",
     "cron": "^3.5.0",
     "dotenv": "^16.4.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "tsx": "^4.19.3"
+    "tsc": "^2.0.4",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
   }
 }

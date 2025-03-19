@@ -23,7 +23,7 @@ async function postImage() {
   });
 
   // Converts the image from path to Uint8Array
-  const { data } = await loadImageData('../images/mrkrabs_day15.jpg');
+  const { data } = await loadImageData('./images/mrkrabs_day15.jpg');
 
   const uploadImage = await agent.uploadBlob(data, { encoding: 'image/jpg' });
 
@@ -33,10 +33,12 @@ async function postImage() {
       images: [
         {
           image: uploadImage.data.blob,
-          alt: 'mr krabs ringing the bell to signal its day 15'
+          alt: 'Mr. Krabs ringing the bell to signal it is day 15 of the month.'
         },
       ],
       $type: 'app.bsky.embed.images',
     },
   });
 }
+
+postImage()

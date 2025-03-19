@@ -1,0 +1,21 @@
+name: "post to bsky"
+
+on: workflow_dispatch
+
+jobs:
+    post-image:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+
+          - name: test
+            env:
+              BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+              BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
+            run: npm start | echo "actions ran successfully"
+
+
+                
+
+
+               
