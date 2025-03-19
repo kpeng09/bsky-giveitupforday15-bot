@@ -14,8 +14,6 @@ async function loadImageData(path: fs.PathLike) {
   return { data: new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength) };
 }
 
-console.log("testing console")
-
 async function postImage() {
   const agent = new AtpAgent({ service: 'https://bsky.social' })
 

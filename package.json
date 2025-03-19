@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Bot that posts Mr. Krabs with his bell every 15th day of the month",
   "repository": "https://github.com/kpto09/bsky-giveitupforday15-bot",
-  "author": "Kay <@projectsbykay.bsky.social",
+  "author": "Kay <@projectsbykay.bsky.social>",
   "license": "MIT",
   "scripts": {
     "start": "npx tsx src/index.ts"
