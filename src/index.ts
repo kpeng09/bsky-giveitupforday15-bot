@@ -2,19 +2,20 @@ import { AtpAgent } from '@atproto/api';
 import * as fs from 'fs';
 import * as util from 'util';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 const readFile = util.promisify(fs.readFile);
 
-async function loadImageData(path: fs.PathLike) {
+async function loadImageData(path: fs.PathLike): Promise<Uint8Array> {
   // Read the file from the provided path
-  let buffer = await readFile(path);
+  const buffer = await readFile(path);
 
   // Convert the buffer to a Uint8Array and return it
-  return { data: new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength) };
+  return { imageData: new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength) };
 }
 
-async function postImage() {
+async function postImage(): Promise<void> {
   const agent = new AtpAgent({ service: 'https://bsky.social' })
 
   await agent.login({
@@ -23,9 +24,9 @@ async function postImage() {
   });
 
   // Converts the image from path to Uint8Array
-  const { data } = await loadImageData('./images/mrkrabs_day15.jpg');
+  const { imageData } = await loadImageData('./images/mrkrabs_day15.jpg');
 
-  const uploadImage = await agent.uploadBlob(data, { encoding: 'image/jpg' });
+  const uploadImage = await agent.uploadBlob(imageData, { encoding: 'image/jpg' });
 
   await agent.post({
     text: "GIVE IT UP FOR DAY 15",
