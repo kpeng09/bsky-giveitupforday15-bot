@@ -12,7 +12,7 @@ jobs:
             env:
               BSKY_HANDLE: ${{ secrets.BSKY_IDENTIFIER }}
               BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
-            run: npm start | echo "actions ran successfully"
+            run: npx tsx src/index.ts
 
 
                 
