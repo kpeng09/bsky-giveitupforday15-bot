@@ -15,7 +15,7 @@ jobs:
             env:
               BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
               BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
-            run: npx jest.login.ts
+            run: npx jest login.test.ts
 
 
                 
