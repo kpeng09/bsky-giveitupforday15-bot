@@ -1,6 +1,5 @@
-# bsky-[giveitupforday15](https://www.youtube.com/watch?v=bUvZRjl2VqU)-bot ([@giveitupforfifteen.bsky.social](https://bsky.app/profile/giveitupforfifteen.bsky.social))
-
-A simple bot that posts Mr. Krabs ringing his bell on day 15th of the month to BlueSky. Created by me (@projectsbykay.bsky.social)
+# bsky-[giveitupforday15](https://www.youtube.com/watch?v=bUvZRjl2VqU)-bot 
+A simple bot ([@giveitupforfifteen.bsky.social](https://bsky.app/profile/giveitupforfifteen.bsky.social)) that posts Mr. Krabs ringing his bell on day 15th of the month to BlueSky. 
 
 <img src="https://github.com/kpeng09/bsky-giveitupforday15-bot/blob/dev/images/mrkrabs_day15.jpg" width="225">
 
