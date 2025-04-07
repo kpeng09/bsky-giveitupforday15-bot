@@ -1,8 +1,8 @@
 import { AtpAgent } from '@atproto/api';
+import { Response } from '@atproto/api/dist/client/types/com/atproto/repo/uploadBlob';
 import * as fs from 'fs';
 import * as util from 'util';
 import * as dotenv from 'dotenv';
-
 
 // Create AtpAgent and login to BlueSky
 async function atpLogin(): Promise<AtpAgent> {
@@ -11,8 +11,8 @@ async function atpLogin(): Promise<AtpAgent> {
     const agent = new AtpAgent({ service: 'https://bsky.social' })
 
     await agent.login({
-      identifier: process.env.BSKY_IDENTIFIER || 'BSKY_IDENTIFIER is missing',
-      password: process.env.BSKY_PASSWORD || 'BSKY_PASSWORD is missing'
+      identifier: process.env.BSKY_IDENTIFIER,
+      password: process.env.BSKY_PASSWORD
     });
 
     return agent;
@@ -30,8 +30,6 @@ async function loadImageData(path: fs.PathLike) {
   } catch (error) {
     throw Error("Unable to load image data - ".concat(error));
   }
-
-
 }
 
 // Uploads the image to BlueSky servers
@@ -44,8 +42,8 @@ async function uploadImage(imageData: Uint8Array, agent: AtpAgent) {
   }
 }
 
-// Make post to BlueSky
-async function postImage(uploadedImage, agent: AtpAgent) {
+// Makes post to BlueSky
+async function postImage(uploadedImage: Response, agent: AtpAgent) {
   try {
     await agent.post({
       text: "GIVE IT UP FOR DAY 15",

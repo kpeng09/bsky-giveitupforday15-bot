@@ -2,25 +2,24 @@ import {describe, expect, test, jest} from '@jest/globals';
 import { atpLogin, uploadImage, postImage } from '../src/bot.ts';
 import * as dotenv from 'dotenv';
 import { AtpAgent } from '@atproto/api';
+import { BlobRef } from '@atproto/api';
 
 jest.mock('@atproto/api');
 
 describe("atpLogin", () => {
-  dotenv.config();
-
-  const mockedAgent = {
+  const mockAgent = {
     login: jest.fn(),
   } as unknown as jest.MockedObject<AtpAgent>
   
-  jest.mocked(AtpAgent).mockReturnValueOnce(mockedAgent)
-   
   test('login success', async () => {
+    jest.mocked(AtpAgent).mockReturnValueOnce(mockAgent)
+    dotenv.config();
     const result = await atpLogin();
   
-    expect(result).toStrictEqual(mockedAgent);
+    expect(result).toStrictEqual(mockAgent);
     expect(AtpAgent).toHaveBeenCalledTimes(1);
-    expect(mockedAgent.login).toHaveBeenCalledTimes(1);
-    expect(mockedAgent.login).toHaveBeenCalledWith({
+    expect(mockAgent.login).toHaveBeenCalledTimes(1);
+    expect(mockAgent.login).toHaveBeenCalledWith({
       identifier: process.env.BSKY_IDENTIFIER,
       password: process.env.BSKY_PASSWORD,
     })
@@ -36,48 +35,49 @@ describe("atpLogin", () => {
     await expect(result).rejects.toThrowError(
       "BlueSky is unable to login - Error: Test login error"
     )
-
   })
 })
 
 describe("uploadImage", () => {
-  const mockedAgent = {
+  const mockAgent = {
     uploadBlob: jest.fn()
   } as unknown as jest.MockedObject<AtpAgent>
 
+  const mockBlobRef = {} as unknown as jest.MockedObject<BlobRef>
+
   test('upload success', async () => {
-    jest.spyOn(mockedAgent, 'uploadBlob').mockResolvedValue({ 
+    jest.spyOn(mockAgent, 'uploadBlob').mockResolvedValue({ 
       success: true,
       headers: {},
       data: {
-        blob: null
+        blob: mockBlobRef
       }
     })
 
     const mockUint8Array = new Uint8Array();
-    const mockedResponse = { 
+    const mockResponse = { 
       success: true,
       headers: {},
       data: {
-        blob: null
+        blob: mockBlobRef
       }
     }
 
-    const result = await uploadImage(mockUint8Array, mockedAgent)
-    expect(result).toStrictEqual(mockedResponse)
+    const result = await uploadImage(mockUint8Array, mockAgent)
+    expect(result).toStrictEqual(mockResponse)
 
-    expect(mockedAgent.uploadBlob).toHaveBeenCalledTimes(1);
-    expect(mockedAgent.uploadBlob).toHaveBeenCalledWith(
+    expect(mockAgent.uploadBlob).toHaveBeenCalledTimes(1);
+    expect(mockAgent.uploadBlob).toHaveBeenCalledWith(
       new Uint8Array(), 
       { encoding: 'image/jpg' }
     )
   })
 
   test('upload error handling', async () => {
-    jest.spyOn(mockedAgent, 'uploadBlob').mockRejectedValue('Test upload error')
+    jest.spyOn(mockAgent, 'uploadBlob').mockRejectedValue('Test upload error')
 
     const mockUint8Array = new Uint8Array();
-    const result = uploadImage(mockUint8Array, mockedAgent)
+    const result = uploadImage(mockUint8Array, mockAgent)
 
     await expect(result).rejects.toThrowError(
       'Unable to upload image to BlueSky - Test upload error'
@@ -86,29 +86,31 @@ describe("uploadImage", () => {
 })
 
 describe("postImage", () => {
-  const mockedAgent = {
+  const mockAgent = {
     post: jest.fn()
   } as unknown as jest.MockedObject<AtpAgent>
 
-  const mockedUploadedImage = { 
+  const mockBlobRef = {} as unknown as jest.MockedObject<BlobRef>
+
+  const mockUploadedImage = { 
     success: true,
     headers: {},
     data: {
-      blob: null
+      blob: mockBlobRef
     }
   }
 
   test("post success", async () => {  
-    const result = postImage(mockedUploadedImage, mockedAgent);
+    const result = postImage(mockUploadedImage, mockAgent);
 
     await expect(result).resolves.not.toThrow();
-    expect(mockedAgent.post).toHaveBeenCalledTimes(1);
-    expect(mockedAgent.post).toHaveBeenCalledWith({
+    expect(mockAgent.post).toHaveBeenCalledTimes(1);
+    expect(mockAgent.post).toHaveBeenCalledWith({
       text: "GIVE IT UP FOR DAY 15",
       embed: {
         images: [
           {
-            image: mockedUploadedImage.data.blob,
+            image: mockUploadedImage.data.blob,
             alt: 'Mr. Krabs ringing the bell to signal it is day 15 of the month.'
           },
         ],
@@ -118,9 +120,9 @@ describe("postImage", () => {
   })
 
   test("post error handling", async () => {
-    jest.spyOn(mockedAgent, 'post').mockRejectedValue('Test post error')
+    jest.spyOn(mockAgent, 'post').mockRejectedValue('Test post error')
 
-    const result = postImage(mockedUploadedImage, mockedAgent);
+    const result = postImage(mockUploadedImage, mockAgent);
     await expect(result).rejects.toThrowError(
       'Unable to post to BlueSky - Test post error'
     )
