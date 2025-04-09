@@ -1,11 +1,22 @@
 name: "post to bsky"
 
-on: push
+on: workflow_dispatch
 # on: 
 #     schedule:
 #             - cron: "0/28 * * * *"
 
 jobs:
+    test-bot:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - run: npm ci
+          - name: test-bot
+            env:
+              BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
+              BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
+            run: npm test
+    
     post-image:
         runs-on: ubuntu-latest
         steps:

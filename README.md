@@ -1,3 +1,8 @@
-# bsky-giveitupforday15-bot
-----
-A bot that posts Mr. Krabs with his bell on every 15th day of the month. The bot uses a cron job inside Github actions.
+# bsky-[giveitupforday15](https://www.youtube.com/watch?v=bUvZRjl2VqU)-bot 
+A simple bot ([@giveitupforfifteen.bsky.social](https://bsky.app/profile/giveitupforfifteen.bsky.social)) that posts Mr. Krabs ringing his bell on day 15th of the month to BlueSky. 
+
+<img src="https://github.com/kpeng09/bsky-giveitupforday15-bot/blob/dev/images/mrkrabs_day15.jpg" width="225">
+
+This is a personal project because I love the meme since years ago and look forward to it every month on my social media. I have wanted to build my own bot so this was a good opportunity play around with BlueSky's API and TypeScript.
+
+The bot uses Typescript, BlueSky's API, and GitHub Actions to schedule cron jobs.

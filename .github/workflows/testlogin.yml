@@ -1,0 +1,24 @@
+name: "post to bsky"
+
+# on: push
+# on: 
+#     schedule:
+#             - cron: "0/28 * * * *"
+
+jobs:
+    test-login:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - run: npm ci
+          - name: test-login
+            env:
+              BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
+              BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD}}
+            run: npx jest login.test.ts
+
+
+                
+
+
+               
