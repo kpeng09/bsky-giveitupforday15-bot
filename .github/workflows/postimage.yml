@@ -1,6 +1,6 @@
 name: "post to bsky"
 
-on: push
+on: workflow_dispatch
 # on: 
 #     schedule:
 #             - cron: "0/28 * * * *"

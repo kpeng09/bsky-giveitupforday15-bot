@@ -1,6 +1,6 @@
 name: "post to bsky"
 
-on: push
+# on: push
 # on: 
 #     schedule:
 #             - cron: "0/28 * * * *"
