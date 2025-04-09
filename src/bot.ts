@@ -22,7 +22,7 @@ async function atpLogin(): Promise<AtpAgent> {
 }
 
 // Converts .jpg image buffer to a Uint8Array
-async function loadImageData(path: fs.PathLike) {
+async function loadImageData(path: fs.PathLike): Promise<{imageData: Uint8Array}> {
   try {
     const readFile = util.promisify(fs.readFile);
     const buffer = await readFile(path);
@@ -33,7 +33,7 @@ async function loadImageData(path: fs.PathLike) {
 }
 
 // Uploads the image to BlueSky servers
-async function uploadImage(imageData: Uint8Array, agent: AtpAgent) {
+async function uploadImage(imageData: Uint8Array, agent: AtpAgent): Promise<Response> {
   try {
     const uploadedImage = await agent.uploadBlob(imageData, { encoding: 'image/jpg' });
     return uploadedImage;
@@ -43,7 +43,7 @@ async function uploadImage(imageData: Uint8Array, agent: AtpAgent) {
 }
 
 // Makes post to BlueSky
-async function postImage(uploadedImage: Response, agent: AtpAgent) {
+async function postImage(uploadedImage: Response, agent: AtpAgent): Promise<void> {
   try {
     await agent.post({
       text: "GIVE IT UP FOR DAY 15",
