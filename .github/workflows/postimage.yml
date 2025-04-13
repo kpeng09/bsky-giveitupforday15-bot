@@ -3,7 +3,7 @@ name: "post to bsky"
 # on: push
 on: 
     schedule:
-            - cron: "28 19 * * 3,5,0"
+            - cron: "26 11 15 4 *"
 
 jobs:
     test-bot:
